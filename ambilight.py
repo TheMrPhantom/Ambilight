@@ -15,18 +15,17 @@ LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53 
 
-X_STEP=5
-Y_STEP=5
+X_STEP=2
+Y_STEP=2
 RES_X=59*X_STEP
 RES_Y=34*Y_STEP
 UPPER_BOUND=10
 LOWER_BOUND=50
-INTERPOLATION_SMOOTHNESS=8
+INTERPOLATION_SMOOTHNESS=3
 BRIGHT_IMAGE=np.full((170, 295, 3), 255)
 
 def toRGB(g,r,b):
 	return Color(r,g,b)
- 
  
 #Initialize strip
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
@@ -52,8 +51,7 @@ for frame in camera.capture_continuous(rawCapture, format="rgb", use_video_port=
 	# grab the raw NumPy array representing the image, then initialize the timestamp
 	# and occupied/unoccupied text
 	image = np.add(np.multiply(np.divide(image,INTERPOLATION_SMOOTHNESS),INTERPOLATION_SMOOTHNESS-1),np.divide(frame.array,INTERPOLATION_SMOOTHNESS))
-	#imageTemp=np.subtract(BRIGHT_IMAGE,image)
-	#image=np.add(image,np.divide(imageTemp,10))
+
 	for x in range(0,59):
 		r=image[UPPER_BOUND][x*X_STEP][0]
                 g=image[UPPER_BOUND][x*X_STEP][1]
