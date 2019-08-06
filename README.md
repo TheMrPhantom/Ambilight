@@ -1,2 +1,2 @@
 # Ambilight
-A python script to capture a screen an display the border with leds around the screen
+A python script to capture a screen and display the border of it with leds around the screen
